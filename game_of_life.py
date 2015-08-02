@@ -46,14 +46,21 @@ def count_neighbors(board, row, cell):
     count = 0
     size = len(board)
     directions = list(product(*[[-1,0,1],[-1, 0, 1]]))
+    directions.remove((0,0))
     for direction_change in directions:
-        if (board
-            [wrap_cells(row + direction_change[0], size)]
-            [wrap_cells(cell + direction_change[1], size)]
-            == live_cell
-            and not (direction_change[0] == 0 and direction_change[1] == 0)):
+        if is_alive(board,
+                    row + direction_change[0],
+                    cell + direction_change[1]):
             count += 1
     return count
+
+# Check to see if a cell is alive.
+def is_alive(board, row, cell):
+    size = len(board)
+    return (board
+    [wrap_cells(row, size)]
+    [wrap_cells(cell, size)]
+    == live_cell)
 
 # Wrap cells around if out of bounds
 def wrap_cells(coordinate, size):
