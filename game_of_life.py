@@ -1,9 +1,9 @@
-# Load board from presets file
 from time import sleep
 from os import system
 from copy import deepcopy
 from itertools import product
 
+# Load board from presets file
 import presets
 
 loaded_board = deepcopy(presets.blinker)
