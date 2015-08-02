@@ -6,7 +6,7 @@ from itertools import product
 # Load board from presets file
 import presets
 
-loaded_board = deepcopy(presets.lwss)
+loaded_board = deepcopy(presets.pentadecathlon)
 
 live_cell = '#'
 dead_cell = ' '
