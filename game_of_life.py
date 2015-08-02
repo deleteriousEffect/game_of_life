@@ -8,8 +8,14 @@ import presets
 
 loaded_board = deepcopy(presets.pentadecathlon)
 
+# Appearance of live and dead cells
 live_cell = '#'
 dead_cell = ' '
+
+# List possible presets
+def list_presets():
+    print ([item for item in dir(presets) if not item.startswith("__")])
+
 # Display board
 def display_board(board):
     for row in board:
