@@ -86,9 +86,10 @@ def wrap_cells(coordinate, size):
         coordinate = 0
     return coordinate
 
-# Loop every 300? miliseconds until interrupt
-while True:
-    display_board(loaded_board)
-    loaded_board = update_board(loaded_board)
-    sleep(.3)
+def start_game():
+    # Loop every 300? miliseconds until interrupt
+    while True:
+        display_board(loaded_board)
+        loaded_board = update_board(loaded_board)
+        sleep(.3)
     system('clear')
