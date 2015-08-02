@@ -45,12 +45,13 @@ def update_board(board):
 def count_neighbors(board, row, cell):
     count = 0
     size = len(board)
-    directions = list(product(*[[-1,0,1],[-1, 0, 1]]))
-    directions.remove((0,0))
-    for direction_change in directions:
+    directions_to_surrounding_cells = list(product(*[[-1,0,1],[-1, 0, 1]]))
+    # Remove directions to current cell
+    directions_to_surrounding_cells.remove((0,0))
+    for direction in directions_to_surrounding_cells:
         if is_alive(board,
-                    row + direction_change[0],
-                    cell + direction_change[1]):
+                    row + direction[0],
+                    cell + direction[1]):
             count += 1
     return count
 
