@@ -13,11 +13,11 @@ The rules (from Wikipedia) are:
                 
 
 ##Requirements:
-  *Linux
-  *Python 3
+  * Linux
+  * Python 3
 
 ##How to install
-  1. Clone the repository[link](https://github.com/haySwim/game_of_life.git)
+  1. Clone the repository[link] (https://github.com/haySwim/game_of_life.git)
 
 ##How to use
   1. Start a terminal
@@ -27,8 +27,8 @@ The rules (from Wikipedia) are:
     * i.e., `python game_of_life.py --pattern=toad`
 
 ##Available patterns
-  *toad: It looks like a jumping toad... kinda
-  *blinker: It blinks
-  *glider: Super fun, iconic Game of Life pattern, files across the terminal
-  *lwss: Lightweight Spaceship, majestically floats sideways
-  *Pentadecathlon(default): Lots of permutations from this one, mercifully made the default you don't have to spell it
+  * toad: It looks like a jumping toad... kinda
+  * blinker: It blinks
+  * glider: Super fun, iconic Game of Life pattern, files across the terminal
+  * lwss: Lightweight Spaceship, majestically floats sideways
+  * pentadecathlon(default): Lots of permutations from this one, mercifully made the default you don't have to spell it
