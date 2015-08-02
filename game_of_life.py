@@ -43,15 +43,15 @@ def update_board(board):
     # Check every cell to see if it should be alive or dead
     # on the next iteration.
     for row in range(0, size):
-        for cell in range(0, size):
-            if should_live(board, row, cell):
-                new_board[row][cell] = live_cell
+        for column in range(0, size):
+            if should_live(board, row, column):
+                new_board[row][column] = live_cell
 
-            if should_die(board, row, cell):
-                    new_board[row][cell] = dead_cell
+            if should_die(board, row, column):
+                    new_board[row][column] = dead_cell
     return new_board
 
-def count_neighbors(board, row, cell):
+def count_neighbors(board, row, column):
     count = 0
     size = len(board)
     directions_to_surrounding_cells = list(product(*[[-1,0,1],[-1, 0, 1]]))
@@ -60,30 +60,30 @@ def count_neighbors(board, row, cell):
     for direction in directions_to_surrounding_cells:
         if is_alive(board,
                     row + direction[0],
-                    cell + direction[1]):
+                    column + direction[1]):
             count += 1
     return count
 
 # Check to see if a cell is alive.
-def is_alive(board, row, cell):
+def is_alive(board, row, column):
     size = len(board)
     return (board
     [wrap_cells(row, size)]
-    [wrap_cells(cell, size)]
+    [wrap_cells(column, size)]
     == live_cell)
 
-def should_live(board, row, cell):
-    num_neighbors = count_neighbors(board, row, cell)
+def should_live(board, row, column):
+    num_neighbors = count_neighbors(board, row, column)
     # Any live Cell with two or three neighbors lives on
-    if is_alive(board, row, cell):
+    if is_alive(board, row, column):
         return (2 <= num_neighbors <= 3)
 
     # Any dead cell with exactly three neighbors becomes alive
-    if not is_alive(board, row, cell):
+    if not is_alive(board, row, column):
         return (num_neighbors == 3)
 
-def should_die(board, row, cell):
-    num_neighbors = count_neighbors(board, row, cell)
+def should_die(board, row, column):
+    num_neighbors = count_neighbors(board, row, column)
 
     # Any cell with fewer than two neighbors dies
     # Any Cell with more than three neighbors dies
