@@ -2,19 +2,31 @@ from time import sleep
 from os import system
 from copy import deepcopy
 from itertools import product
+import sys
+import argparse
 
-# Load board from presets file
+# Load boards from presets file
 import presets
 
-loaded_board = deepcopy(presets.pentadecathlon)
 
 # Appearance of live and dead cells
 live_cell = '#'
 dead_cell = ' '
 
-# List possible presets
-def list_presets():
-    print ([item for item in dir(presets) if not item.startswith("__")])
+# Take the name of a pattern as a command-line argument.
+parser = argparse.ArgumentParser(description = 'Process arguments for game of life')
+parser.add_argument('--pattern',
+                    type=str.lower,
+                    default='pentadecathlon',
+                    choices = [item for item in dir(presets) if not item.startswith('__')])
+args = parser.parse_args()
+
+print(args.pattern)
+user_preset = args.pattern
+
+def get_pattern(pattern):
+        path_to_preset = eval('presets.' + pattern)
+        return deepcopy(path_to_preset)
 
 # Display board
 def display_board(board):
@@ -86,10 +98,13 @@ def wrap_cells(coordinate, size):
         coordinate = 0
     return coordinate
 
-def start_game():
+def start_game(loaded_board):
     # Loop every 300? miliseconds until interrupt
     while True:
         display_board(loaded_board)
         loaded_board = update_board(loaded_board)
         sleep(.3)
-    system('clear')
+        system('clear')
+
+board = get_pattern(user_preset)
+start_game(board)
