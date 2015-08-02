@@ -22,24 +22,15 @@ def display_board(board):
 def update_board(board):
     size = len(board)
     new_board = deepcopy(board)
-    # Check every cell
+    # Check every cell to see if it should be alive or dead
+    # on the next iteration.
     for row in range(0, size):
         for cell in range(0, size):
-            num_neighbors = count_neighbors(board, row, cell)
-        # If live
-            if is_alive(board, row, cell):
-                # Any cell with fewer than two neighbors dies
-                if num_neighbors < 2:
+            if should_live(board, row, cell):
+                new_board[row][cell] = live_cell
+
+            if should_die(board, row, cell):
                     new_board[row][cell] = dead_cell
-                # Any Cell with two or three neighbors lives on
-                # Any Cell with more than three neighbors dies
-                if num_neighbors > 3:
-                    new_board[row][cell] = dead_cell
-            # If dead
-            if not is_alive(board, row, cell):
-                # Any dead Cell with exactly three neighbors becomes a live Cell
-                if num_neighbors == 3:
-                    new_board[row][cell] = live_cell
     return new_board
 
 def count_neighbors(board, row, cell):
@@ -62,6 +53,24 @@ def is_alive(board, row, cell):
     [wrap_cells(row, size)]
     [wrap_cells(cell, size)]
     == live_cell)
+
+def should_live(board, row, cell):
+    num_neighbors = count_neighbors(board, row, cell)
+    # Any live Cell with two or three neighbors lives on
+    if is_alive(board, row, cell):
+        return (2 <= num_neighbors <= 3)
+
+    # Any dead cell with exactly three neighbors becomes alive
+    if not is_alive(board, row, cell):
+        return (num_neighbors == 3)
+
+def should_die(board, row, cell):
+    num_neighbors = count_neighbors(board, row, cell)
+
+    # Any cell with fewer than two neighbors dies
+    # Any Cell with more than three neighbors dies
+    return (num_neighbors > 3 or num_neighbors < 2)
+
 
 # Wrap cells around if out of bounds
 def wrap_cells(coordinate, size):
