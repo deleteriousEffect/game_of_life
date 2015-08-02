@@ -17,7 +17,7 @@ The rules (from Wikipedia) are:
   * Python 3
 
 ##How to install
-  1. Clone the repository[link] (https://github.com/haySwim/game_of_life.git)
+  1. Clone the repository [link](https://github.com/haySwim/game_of_life.git)
 
 ##How to use
   1. Start a terminal
