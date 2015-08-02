@@ -6,7 +6,7 @@ from itertools import product
 # Load board from presets file
 import presets
 
-loaded_board = deepcopy(presets.glider)
+loaded_board = deepcopy(presets.lwss)
 
 live_cell = '#'
 dead_cell = ' '
