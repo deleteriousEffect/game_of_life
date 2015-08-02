@@ -2,13 +2,14 @@
 from time import sleep
 from os import system
 from copy import deepcopy
+from itertools import product
 
 import presets
 
-loaded_board = deepcopy(presets.toad)
+loaded_board = deepcopy(presets.blinker)
 
 live_cell = '#'
-dead_cell = '_'
+dead_cell = ' '
 # Display board
 def display_board(board):
     for row in board:
@@ -44,30 +45,14 @@ def update_board(board):
 def count_neighbors(board, row, cell):
     count = 0
     size = len(board)
-    # Look north
-    if board[wrap_cells(row - 1, size)][cell] == live_cell:
-        count += 1
-    # Look northeast
-    if board[wrap_cells(row - 1, size)][wrap_cells(cell + 1, size)] == live_cell:
-        count += 1
-    # Look northwest
-    if board[wrap_cells(row - 1, size)][wrap_cells(cell - 1, size)] == live_cell:
-        count += 1
-    # Look west
-    if board[row][wrap_cells(cell - 1, size)] == live_cell:
-        count += 1
-    # Look east
-    if board[row][wrap_cells(cell + 1, size)] == live_cell:
-        count += 1
-    # Look south
-    if board[wrap_cells(row + 1, size)][cell] == live_cell:
-        count += 1
-    # Look southeast
-    if board[wrap_cells(row + 1, size)][wrap_cells(cell + 1, size)] == live_cell:
-        count += 1
-    # Look southwest
-    if board[wrap_cells(row + 1, size)][wrap_cells(cell - 1, size)] == live_cell:
-        count += 1
+    directions = list(product(*[[-1,0,1],[-1, 0, 1]]))
+    for direction_change in directions:
+        if (board
+            [wrap_cells(row + direction_change[0], size)]
+            [wrap_cells(cell + direction_change[1], size)]
+            == live_cell
+            and not (direction_change[0] == 0 and direction_change[1] == 0)):
+            count += 1
     return count
 
 # Wrap cells around if out of bounds
