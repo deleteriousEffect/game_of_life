@@ -27,7 +27,7 @@ def update_board(board):
         for cell in range(0, size):
             num_neighbors = count_neighbors(board, row, cell)
         # If live
-            if board[row][cell] == live_cell:
+            if is_alive(board, row, cell):
                 # Any cell with fewer than two neighbors dies
                 if num_neighbors < 2:
                     new_board[row][cell] = dead_cell
@@ -36,7 +36,7 @@ def update_board(board):
                 if num_neighbors > 3:
                     new_board[row][cell] = dead_cell
             # If dead
-            if board[row][cell] == dead_cell:
+            if not is_alive(board, row, cell):
                 # Any dead Cell with exactly three neighbors becomes a live Cell
                 if num_neighbors == 3:
                     new_board[row][cell] = live_cell
