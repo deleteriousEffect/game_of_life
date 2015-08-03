@@ -54,11 +54,11 @@ def update_board(board):
 def count_neighbors(board, row, column):
     count = 0
     size = len(board)
-    directions_to_surrounding_cells = list(product(*[[-1,0,1],[-1, 0, 1]]))
+    neighboring_cell_offsets = list(product(*[[-1,0,1],[-1, 0, 1]]))
     # Remove directions to current cell
-    directions_to_surrounding_cells.remove((0,0))
-    for direction in directions_to_surrounding_cells:
-        vertical_offset, horizontal_offset = direction
+    neighboring_cell_offsets.remove((0,0))
+    for offsets in neighboring_cell_offsets:
+        vertical_offset, horizontal_offset = offsets
         if is_alive(board,
                     row + vertical_offset,
                     column + horizontal_offset):
