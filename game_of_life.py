@@ -58,9 +58,10 @@ def count_neighbors(board, row, column):
     # Remove directions to current cell
     directions_to_surrounding_cells.remove((0,0))
     for direction in directions_to_surrounding_cells:
+        vertical_offset, horizontal_offset = direction
         if is_alive(board,
-                    row + direction[0],
-                    column + direction[1]):
+                    row + vertical_offset,
+                    column + horizontal_offset):
             count += 1
     return count
 
