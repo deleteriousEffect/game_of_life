@@ -2,7 +2,6 @@ from time import sleep
 from os import system
 from copy import deepcopy
 from itertools import product
-import sys
 import argparse
 
 # Load boards from presets file
@@ -14,19 +13,24 @@ live_cell = '#'
 dead_cell = ' '
 
 # Take the name of a pattern as a command-line argument.
-parser = argparse.ArgumentParser(description = 'Process arguments for game of life')
+parser = argparse.ArgumentParser(
+    description='Process arguments for game of life'
+    )
 parser.add_argument('--pattern',
                     type=str.lower,
                     default='pentadecathlon',
-                    choices = [item for item in dir(presets) if not item.startswith('__')])
+                    choices=[item for item in dir(presets)
+                             if not item.startswith('__')])
 args = parser.parse_args()
 
 print(args.pattern)
 user_preset = args.pattern
 
+
 def get_pattern(pattern):
         path_to_preset = eval('presets.' + pattern)
         return deepcopy(path_to_preset)
+
 
 # Display board
 def display_board(board):
@@ -35,6 +39,7 @@ def display_board(board):
         for cell in row:
             print(cell, end='')
     print('')
+
 
 # Update board
 def update_board(board):
@@ -51,11 +56,11 @@ def update_board(board):
                     new_board[row][column] = dead_cell
     return new_board
 
+
 def count_neighbors(board, row, column):
     count = 0
-    size = len(board)
     neighboring_cell_offsets = [offset for offset
-                                in list(product(*[[-1,0,1],[-1, 0, 1]]))
+                                in list(product(*[[-1, 0, 1], [-1, 0, 1]]))
                                 if not offset == (0, 0)]
 
     for offset in neighboring_cell_offsets:
@@ -66,13 +71,14 @@ def count_neighbors(board, row, column):
             count += 1
     return count
 
+
 # Check to see if a cell is alive.
 def is_alive(board, row, column):
     size = len(board)
-    return (board
-    [wrap_cells(row, size)]
-    [wrap_cells(column, size)]
-    == live_cell)
+    return (
+        board[wrap_cells(row, size)][wrap_cells(column, size)] == live_cell
+        )
+
 
 def should_live(board, row, column):
     num_neighbors = count_neighbors(board, row, column)
@@ -83,6 +89,7 @@ def should_live(board, row, column):
     # Any dead cell with exactly three neighbors becomes alive
     if not is_alive(board, row, column):
         return (num_neighbors == 3)
+
 
 def should_die(board, row, column):
     num_neighbors = count_neighbors(board, row, column)
@@ -99,6 +106,7 @@ def wrap_cells(coordinate, size):
     elif coordinate >= size:
         coordinate = 0
     return coordinate
+
 
 def start_game(loaded_board):
     # Loop every 300? miliseconds until interrupt
